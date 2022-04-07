@@ -98,6 +98,7 @@ public class Main {
 
     public static void editPel(Pelajar pel, Scanner scanner) {
         System.out.println("---------------------------");
+        System.out.println("Rentang Nilai = 0-100");
         System.out.print("Nilai Struktur dan Konten Esai: ");
         pel.setNske(scanner.nextDouble());
         System.out.print("Nilai Teknik Visualisasi: ");
@@ -122,6 +123,7 @@ public class Main {
 
     public static void editMhs(Mahasiswa mhs, Scanner scanner) {
         System.out.println("---------------------------");
+        System.out.println("Rentang Nilai = 0-100");
         System.out.print("Nilai Struktur dan Konten Jurnal: ");
         mhs.setNskj(scanner.nextDouble());
         System.out.print("Nilai Relevansi Data: ");
