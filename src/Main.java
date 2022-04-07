@@ -2,98 +2,144 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        double nske=0, ntv=0, nkdt=0, nskj=0, nrd=0, nkps=0, hasil=0;
-        boolean z = true;
-        double usia;
-        String nama;
 
         Scanner scanner = new Scanner(System.in);
 
+        int formulir, menu, bea, usia;
+        boolean ulangi = true;
+        System.out.println(" ");
         System.out.println("====================================================");
         System.out.println("Selamat datang di program beasiswa Perusahaan Benang");
         System.out.println("====================================================");
+        System.out.println("HANYA DIPERUNTUKKAN BAGI YANG BERUSIA 16-24 TAHUN!");
+        System.out.print("Berapa usia anda? : ");
+        usia = scanner.nextInt(); scanner.nextLine();
+        System.out.println(" ");
+        System.out.println("Pilih Kategori Beasiswa: ");
         System.out.println("1. Beasiswa Pelajar     2. Beasiswa Mahasiswa");
-        System.out.print("Pilihan Beasiswa : ");
-        int bea = scanner.nextInt(); scanner.nextLine();
+        System.out.print("Pilihan: ");
+        bea = scanner.nextInt(); scanner.nextLine();
+        System.out.println(" ");
 
-        switch(bea) {
-            case 1:
-                Pelajar bp = new Pelajar(nske, ntv, nkdt, hasil);
-                OUTER:
-                do {
-                    System.out.println("+++ MENU +++");
-                    System.out.println("1. Tampilkan Hasil");
-                    System.out.println("2. Ubah Nilai");
-                    System.out.println("3. Keluar");
-                    System.out.print("Pilih: ");
-                    int pilih = scanner.nextInt();
-                    scanner.nextLine();
+        if (usia>=16 && usia<=24) {
 
-                    switch(pilih) {
+                    switch (bea) {
                         case 1:
-                          bp.hasil();
-                          System.out.println(" ");
-                        break;
-                        case 2:
-                            System.out.println("--- EDIT NILAI ---");
+                            Pelajar pel = new Pelajar();
+                            Scanner pel1 = new Scanner(System.in);
 
-                            System.out.print("Nilai Struktur dan Konten Esai: ");
-                            nske = scanner.nextDouble(); scanner.nextLine();
-                            System.out.print("Nilai Teknik Visualisasi: ");
-                            ntv = scanner.nextDouble(); scanner.nextLine();
-                            System.out.print("Nilai kemampuan Design Thinking");
-                            nkdt = scanner.nextDouble(); scanner.nextLine();
-                        break;
-                        case 3:
-                            System.exit(0);
-                        default:
-                            System.out.println("Data tidak ditemukan!");
-                        break;
+                            System.out.println("=== FORM PENDAFTARAN ===");
+                            System.out.print("Nama : ");
+                            pel.setNama(pel1.nextLine());
+
+                            editPel(pel,scanner);
+
+                            while (ulangi) {
+                                System.out.println("Menu");
+                                System.out.println("1. Edit Nilai");
+                                System.out.println("2. Tampilkan Nilai");
+                                System.out.println("3. Exit");
+                                System.out.print("Pilih : ");
+                                menu = scanner.nextInt();
+
+                                switch (menu) {
+                                    case 1:
+                                        System.out.println("=== EDIT ===");
+                                        editPel(pel,scanner);
+                                        break;
+                                    case 2:
+                                        hasilPel(pel);
+                                        break;
+                                    case 3:
+                                        ulangi=false;
+                                        break;
+                                }
+                            }
+                            break;
+
+                        case 2:
+                            Mahasiswa mhs = new Mahasiswa();
+                            Scanner mhs1 = new Scanner(System.in);
+
+                            System.out.println("=== FORM PENDAFTARAN ===");
+                            System.out.print("Nama : ");
+                            mhs.setNama(mhs1.nextLine());
+
+                            editMhs(mhs,scanner);
+
+                            while (ulangi) {
+                                System.out.println("Menu");
+                                System.out.println("1. Edit Nilai");
+                                System.out.println("2. Tampilkan Nilai");
+                                System.out.println("3. Exit");
+                                System.out.print("Pilih : ");
+                                menu = scanner.nextInt();
+
+                                switch (menu) {
+                                    case 1:
+                                        System.out.println("=== EDIT ===");
+                                        editMhs(mhs,scanner);
+                                        break;
+                                    case 2:
+                                        hasilMhs(mhs);
+                                        break;
+                                    case 3:
+                                        ulangi=false;
+                                        break;
+                                }
+                            }
+                            break;
                     }
 
-                } while (z=true);
-            break;
+        } else {
+            System.out.println("Usia anda tidak mencukupi persyaratan!");
+        }
+    }
 
-            case 2:
-                Mahasiswa mahasiswa = new Mahasiswa(nskj, nrd, nkps, hasil);
-                OUTER:
-                do {
-                    System.out.println("+++ MENU +++");
-                    System.out.println("1. Tampilkan Hasil");
-                    System.out.println("2. Ubah Nilai");
-                    System.out.println("3. Keluar");
-                    System.out.print("Pilih: ");
-                    int pilih = scanner.nextInt();
-                    scanner.nextLine();
+    public static void editPel(Pelajar pel, Scanner scanner) {
+        System.out.println("---------------------------");
+        System.out.print("Nilai Struktur dan Konten Esai: ");
+        pel.setNske(scanner.nextDouble());
+        System.out.print("Nilai Teknik Visualisasi: ");
+        pel.setNtv(scanner.nextDouble());
+        System.out.print("Nilai Kemampuan Design Thinking: ");
+        pel.setNkdt(scanner.nextDouble());
+    }
 
-                    switch(pilih) {
-                        case 1:
-                            mahasiswa.hasil();
-                            System.out.println(" ");
-                        break;
-                        case 2:
-                            System.out.println("--- EDIT NILAI ---");
+    public static void hasilPel(Pelajar pel) {
 
-                            System.out.print("Nilai Struktur dan Konten Jurnal: ");
-                            nskj = scanner.nextDouble(); scanner.nextLine();
-                            System.out.print("Nilai Relevansi Data: ");
-                            nrd = scanner.nextDouble(); scanner.nextLine();
-                            System.out.print("Nilai Kemampuan Problem Solving: ");
-                            nkps = scanner.nextDouble(); scanner.nextLine();
-                        break;
-                        case 3:
-                            System.exit(0);
-                        default:
-                            System.out.println("Data tidak ditemukan!");
-                        break;
-                    }
+        pel.hitungNilai();
 
-                } while (z=true);
-            break;
+        System.out.println("Nilai Akhir: " + pel.getNilai());
+        if (pel.getNilai()>=87.5) {
+            System.out.println("Status: LOLOS");
+            System.out.println("Selamat kepada " + pel.getNama() + " telah lolos seleksi Beasiswa Pelajar");
+        } else {
+            System.out.println("Status: TIDAK LOLOS");
+            System.out.println("Mohon Maaf " + pel.getNama() + " coba lagi di lain kesempatan");
+        }
+    }
 
-            default:
-                System.out.println("Input yang dimasukkan salah!");
-            break;
+    public static void editMhs(Mahasiswa mhs, Scanner scanner) {
+        System.out.println("---------------------------");
+        System.out.print("Nilai Struktur dan Konten Jurnal: ");
+        mhs.setNskj(scanner.nextDouble());
+        System.out.print("Nilai Relevansi Data: ");
+        mhs.setNrd(scanner.nextDouble());
+        System.out.print("Nilai Kemampuan Problem Solving: ");
+        mhs.setNkps(scanner.nextDouble());
+    }
+
+    public static void hasilMhs(Mahasiswa mhs) {
+        mhs.hitungNilai();
+
+        System.out.println("Nilai Akhir: " + mhs.getNilai());
+        if (mhs.getNilai()>=87.5) {
+            System.out.println("Status: LOLOS");
+            System.out.println("Selamat kepada " + mhs.getNama() + " telah lolos seleksi Beasiswa Mahasiswa");
+        } else {
+            System.out.println("Status: TIDAK LOLOS");
+            System.out.println("Mohon Maaf " + mhs.getNama() + " coba lagi di lain kesempatan");
         }
     }
 }
